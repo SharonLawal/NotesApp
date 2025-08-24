@@ -1,21 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet } from "react-native";
-import { Text, View } from "react-native";
-import { Button, Card, Title, Paragraph, FAB } from "react-native-paper";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { FAB } from "react-native-paper";
 import styled from "styled-components/native";
 import { useTheme } from "styled-components";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Search } from "../components/search.component";
-import { Spacer } from "../../../components/spacer/spacer.component";
-import { FlatGrid } from "react-native-super-grid";
 import MasonryList from "@react-native-seoul/masonry-list";
 import { NoteCard } from "../components/note-card.component";
 import { NotesContext } from "../../../services/notes/notes.context";
 import { formatDate } from "../../../infrastructure/utility/formatDate";
 import { Ionicons } from "@expo/vector-icons";
-import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
 
 const Loading = styled.ActivityIndicator`
   flex: 1;
@@ -30,6 +24,7 @@ const SearchContainer = styled.View`
   flex: 0.15;
   width: 100%;
 `;
+
 const BottomBar = styled.View`
   flex-direction: row;
   justify-content: center;
@@ -53,18 +48,16 @@ const TopBar = styled.View`
 
 export const NotesScreen = ({ navigation }) => {
   const theme = useTheme();
-  const { notes, updateNote, addNote, removeNote, isLoading, keyword } =
-    useContext(NotesContext);
+  const { notes, updateNote, addNote, removeNote, isLoading, keyword } = useContext(NotesContext);
   const [gridKey, setGridKey] = useState(0);
 
-  // Add the useState hooks for selectionMode and selectedNotes
   const [selectionMode, setSelectionMode] = useState(false);
   const [selectedNotes, setSelectedNotes] = useState([]);
   const [allNotesSelected, setAllNotesSelected] = useState(false);
-  // Functions to handle selection mode and note selection
+
   const toggleSelectionMode = () => {
     setSelectionMode(!selectionMode);
-    setSelectedNotes([]); // Clear selected notes when exiting selection mode
+    setSelectedNotes([]);
   };
 
   const toggleNoteSelection = (noteId) => {
@@ -75,13 +68,11 @@ export const NotesScreen = ({ navigation }) => {
     }
   };
 
-  // Function to delete all selected notes
   const deleteSelectedNotes = () => {
     selectedNotes.forEach((noteId) => removeNote(noteId));
     toggleSelectionMode();
   };
 
-  // Function to select all notes
   const selectAllNotes = () => {
     if (allNotesSelected) {
       setSelectedNotes([]);
@@ -100,11 +91,7 @@ export const NotesScreen = ({ navigation }) => {
       {selectionMode && (
         <TopBar>
           <TouchableOpacity onPress={toggleSelectionMode}>
-            <Ionicons
-              name="close"
-              size={24}
-              color={theme.colors.text.primary}
-            />
+            <Ionicons name="close" size={24} color={theme.colors.text.primary} />
           </TouchableOpacity>
           <Text style={{ color: theme.colors.text.primary }}>
             {selectedNotes.length} selected
@@ -135,7 +122,6 @@ export const NotesScreen = ({ navigation }) => {
           right: 0,
           bottom: 0,
           borderRadius: 1000,
-
           backgroundColor: "tomato",
         }}
       />
@@ -203,6 +189,7 @@ export const NotesScreen = ({ navigation }) => {
                       }}
                       keyword={keyword}
                       selected={selectedNotes.includes(item.id)}
+                      isFavorite={item.isFavorite} // <-- Pass this prop
                       ListEmptyComponent={
                         <Text
                           style={{
@@ -221,7 +208,6 @@ export const NotesScreen = ({ navigation }) => {
             )}
           />
         )}
-
         {selectionMode && (
           <BottomBar>
             <TouchableOpacity onPress={deleteSelectedNotes}>
