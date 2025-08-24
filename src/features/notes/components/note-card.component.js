@@ -1,59 +1,63 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Button, Card, Title, Paragraph } from "react-native-paper";
-import { useTheme } from "styled-components";
-import { Spacer } from "../../../components/spacer/spacer.component";
+// src/features/notes/components/note-card.component.js
+import React, { useContext } from "react";
 import styled from "styled-components/native";
+import { useTheme } from "styled-components";
+import { Text, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { NotesContext } from "../../../services/notes/notes.context";
 
-const Highlight = styled.Text`
-  color: tomato;
+const NoteCardContainer = styled.View`
+  background-color: ${(props) => props.theme.colors.ui.primary};
+  border-radius: ${(props) => props.theme.sizes[1]};
+  padding: ${(props) => props.theme.space[4]} ${(props) => props.theme.space[3]};
+  position: relative;
+  overflow: hidden;
+  border: ${(props) => props.selected ? "2px solid tomato" : "none"};
 `;
 
-const highlightKeyword = (text, keyword) => {
-  if (!keyword) return text;
+const NoteTitle = styled.Text`
+  font-size: ${(props) => props.theme.fontSizes.title};
+  font-weight: ${(props) => props.theme.fontWeights.bold};
+  color: ${(props) => props.theme.colors.text.primary};
+`;
 
-  const regex = new RegExp(`(${keyword})`, "gi");
-  const parts = text.split(regex);
-  const highlightedText = parts.map((part, index) => {
-    if (part.toLowerCase() === keyword.toLowerCase()) {
-      return <Highlight key={index}>{part}</Highlight>;
-    }
-    return part;
-  });
+const NoteParagraph = styled.Text`
+  font-size: 14px;
+  color: ${(props) => props.theme.colors.text.secondary};
+  margin-top: ${(props) => props.theme.space[2]};
+`;
 
-  return highlightedText;
-};
+const NoteDate = styled.Text`
+  font-size: ${(props) => props.theme.fontSizes.caption};
+  color: ${(props) => props.theme.colors.text.secondary};
+  position: absolute;
+  bottom: ${(props) => props.theme.space[2]};
+  right: ${(props) => props.theme.space[2]};
+`;
 
-export const NoteCard = ({ title, paragraph, date, onPress, keyword }) => {
+const FavoriteButton = styled(TouchableOpacity)`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+`;
+
+export const NoteCard = ({ id, title, paragraph, date, selected, isFavorite }) => {
   const theme = useTheme();
+  const { toggleFavorite } = useContext(NotesContext);
+
   return (
-    <Card
-      style={{
-        backgroundColor: theme.colors.ui.primary,
-      }}
-      onPress={onPress}
-    >
-      <Card.Title
-        titleStyle={{
-          fontSize: 18,
-          color: theme.colors.text.primary,
-        }}
-        title={highlightKeyword(title, keyword)}
-      />
-      <Card.Content>
-        <Paragraph
-          numberOfLines={4}
-          style={{ fontSize: 14, color: theme.colors.text.secondary }}
-        >
-          {highlightKeyword(paragraph, keyword)}
-        </Paragraph>
-        <Spacer position="top" size="large" />
-        <Paragraph
-          numberOfLines={1}
-          style={{ fontSize: 14, color: theme.colors.text.disabled }}
-        >
-          {date}
-        </Paragraph>
-      </Card.Content>
-    </Card>
+    <NoteCardContainer selected={selected}>
+      <FavoriteButton onPress={() => toggleFavorite(id)}>
+        <Ionicons
+          name={isFavorite ? "star" : "star-outline"}
+          size={24}
+          color={isFavorite ? "orange" : theme.colors.text.primary}
+        />
+      </FavoriteButton>
+      <NoteTitle numberOfLines={1}>{title}</NoteTitle>
+      <NoteParagraph numberOfLines={4}>{paragraph}</NoteParagraph>
+      <NoteDate>{date}</NoteDate>
+    </NoteCardContainer>
   );
 };

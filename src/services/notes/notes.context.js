@@ -33,7 +33,6 @@ export const NotesContextProvider = ({ children }) => {
         );
       }
 
-      // Sort the notes by date recency
       parsedNotes.sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
@@ -84,6 +83,7 @@ export const NotesContextProvider = ({ children }) => {
       console.log("error removing note", e);
     }
   };
+
   const updateNote = async (note) => {
     console.log("new note data:", note);
     const noteIndex = notes.findIndex((n) => n.id === note.id);
@@ -98,6 +98,14 @@ export const NotesContextProvider = ({ children }) => {
     }
   };
 
+  const toggleFavorite = async (noteId) => {
+    const noteToUpdate = notes.find(note => note.id === noteId);
+    if (noteToUpdate) {
+      const updatedNote = { ...noteToUpdate, isFavorite: !noteToUpdate.isFavorite };
+      await updateNote(updatedNote);
+    }
+  };
+
   return (
     <NotesContext.Provider
       value={{
@@ -107,6 +115,7 @@ export const NotesContextProvider = ({ children }) => {
         addNote: addNote,
         removeNote: (id) => removeNote(id),
         updateNote: (note) => updateNote(note),
+        toggleFavorite,
         search: onSearch,
         keyword,
         isLoading,
