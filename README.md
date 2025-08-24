@@ -1,13 +1,9 @@
-<div align="center">
-    <h1> Notes App</h1>
-</div>
+# Notes App
 
-<div align="center">
-    <img style="width: 200px;" src="https://github.com/mateogon/NotesApp/blob/master/img/notes_screen.png?raw=true" alt="notes screen"/>
-    <img style="width: 200px;" src="https://github.com/mateogon/NotesApp/blob/master/img/search_highlight.png?raw=true" alt="search highlight"/>
-    <img style="width: 200px;" src="https://github.com/mateogon/NotesApp/blob/master/img/selection_mode.png?raw=true" alt="selection mode"/>
-    <img style="width: 200px;" src="https://github.com/mateogon/NotesApp/blob/master/img/note_edit.png?raw=true" alt="edit notes"/>
-</div>
+![notes screen](https://github.com/SharonLawal/NotesApp/blob/master/img/notes_screen.png?raw=true)
+![search highlight](https://github.com/SharonLawal/NotesApp/blob/master/img/search_highlight.png?raw=true)
+![selection mode](https://github.com/SharonLawal/NotesApp/blob/master/img/selection_mode.png?raw=true)
+![edit notes](https://github.com/SharonLawal/NotesApp/blob/master/img/note_edit.png?raw=true)
 
 ## 🧪 Technologies
 
@@ -21,18 +17,18 @@ This project was developed using the next technologies:
 Clone the project:
 
 ```bash
-$ git clone https://github.com/mateogon/NotesApp.git
-$ cd NotesApp
+git clone https://github.com/SharonLawal/NotesApp.git
+cd NotesApp
 ```
 
 To run:
 
 ```bash
 # Install dependencies
-$ yarn install
+yarn install
 
 # Start project
-$ yarn android
+yarn android
 ```
 
 ## 💻 Project
