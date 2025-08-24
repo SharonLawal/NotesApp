@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "NotesApp",
-    "slug": "NotesApp",
+    "name": "NoteEase",
+    "slug": "note-ease",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,10 +22,15 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "com.anonymous.NotesApp"
+      "package": "com.anonymous.NoteEase"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a350ebe5-cb53-41b8-9871-3aaf752cc20b"
+      }
     }
   }
 }
