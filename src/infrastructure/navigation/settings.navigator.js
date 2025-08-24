@@ -1,24 +1,20 @@
-import React, { useEffect } from "react";
-
+// src/infrastructure/navigation/settings.navigator.js
+import React from "react";
 import {
   createStackNavigator,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
+import { FavouritesScreen } from "../../features/notes/screens/favourites.screen";
+import { SettingsScreen } from "../../features/notes/screens/settings.screen";
 
 const SettingStack = createStackNavigator();
 
-const FavouritesScreen = () => {
-  return null;
-};
-const SettingsScreen = () => {
-  return null;
-};
-export const SettingsNavigator = ({ route, navigation }) => {
+export const SettingsNavigator = () => {
   return (
     <SettingStack.Navigator
       screenOptions={{
         headerShown: true,
-        headermode: "screen",
+        headerMode: "screen",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
