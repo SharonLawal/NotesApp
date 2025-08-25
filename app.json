@@ -29,8 +29,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "a350ebe5-cb53-41b8-9871-3aaf752cc20b"
+        "projectId": "ac21e2c9-d918-4a20-9ef7-2752595a18a1"
       }
-    }
+    },
+    "owner": "roonilwazlib"
   }
 }
